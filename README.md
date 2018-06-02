@@ -131,3 +131,37 @@ homeassistant:
             color_on: 'var(--primary-text-color)'               # 图标和文字的颜色-打开的时候(默认为主题按钮颜色)
             color_off: 'var(--primary-text-color)'              # 图标和文字的颜色-关闭的时候(默认为主题按钮颜色)
 ```
+#### 附加信息显示
+可以在名称下方显示一些附加的信息
+```
+~~~
+      config:
+        ha_entity_toggle_display: none       # 不显示右边本来的按钮（默认为显示）
+        extra_badge:                         #在设备名称下方显示其他附加信息(默认不显示)
+          - entity_id: light.led_tasmota     #在设备名称后显示其他设备信息的ID
+            title: 亮度                       #显示的前文本(默认不显示))
+            attribute: brightness            #若加此项则显示该设备的附加属性(默认显示state值)
+            unit: '%'                        #单位(也就是后文本,默认不显示)
+          - entity_id: input_boolean.boolean_ceshi2   #可以写多个id的信息,默认就是这个ID的state值
+```
+#### 自定义按钮功能
+按钮点击时候的动作,也就是`action`.写法和自动化的action差不多! 不会的搜索自动化教程!  当然也可以不写,不写就是单纯的按钮toggle动作!
+```
+~~~
+      config:
+        entities:
+          - entity: input_boolean.boolean_ceshi3       #增加的按钮的entity_id
+            icon: mdi:home-outline
+            service: light.turn_on                #当这个按钮点击时候的动作,也就是action.(默认为toggle)
+            data:                           #如果需要发送data就写,写法和自动化的action差不多!(默认没有)
+              entity_id: light.led_tasmota           #如果有写data就必须写entity_id,不写就是控制全部 light
+              rgb_color: [255,0,0]
+              brightness: 200
+          - entity: climate.midea
+            image: 'https://www.easyicon.net/api/resizeApi.php?id=1181722&size=48'
+            image_height: 26px 
+            service: climate.set_operation_mode
+            data:
+              entity_id: climate.midea  #如果有写data就必须写entity_id,不写就是控制全部climate
+              operation_mode: auto 
+```
