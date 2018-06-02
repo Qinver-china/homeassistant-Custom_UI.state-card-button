@@ -1,4 +1,4 @@
-# 多功能按钮的自定义UI
+# 用于Homeassistant多功能按钮的自定义UI
 
 ### state-card-button.html
 
