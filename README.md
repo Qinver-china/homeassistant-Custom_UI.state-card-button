@@ -131,6 +131,14 @@ homeassistant:
             color_on: 'var(--primary-text-color)'               # 图标和文字的颜色-打开的时候(默认为主题按钮颜色)
             color_off: 'var(--primary-text-color)'              # 图标和文字的颜色-关闭的时候(默认为主题按钮颜色)
 ```
+#### 原按钮是否显示
+是否显示这个ID右边原有的开关按钮,默认为显示,如果需要不显示,则添加以下配置
+```
+~~~
+      config:
+        ha_entity_toggle_display: none       # 不显示右边本来的按钮（默认为显示）
+```
+
 #### 附加信息显示
 可以在名称下方显示一些附加的信息
 ```
