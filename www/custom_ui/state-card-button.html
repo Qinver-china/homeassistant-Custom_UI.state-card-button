@@ -1,0 +1,202 @@
+<dom-module id="state-card-button">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
+    <style>
+     .button-groupa {          
+        text-align: right;
+        margin: -6px 0;
+      }    
+      paper-button-group {          
+        padding: 0;
+        margin: auto;
+        text-align: right;
+        margin-right: var(--group-margin-right);
+        display: table;
+        border-collapse:separate;
+        border-spacing: var(--tiles-gap);
+      }  
+      paper-button {  
+        display:table-cell;
+        vertical-align:middle;
+        text-align:center;
+        background-color: var(--tiles-background-color-off);
+        color: var(--tiles-color-off);
+        border-radius: var(--border-radius);
+        transition: .1s;
+        min-width: var(--tiles-width);
+        height: var(--tiles-height);
+        padding: 0;
+        background-repeat:no-repeat;
+        background-position:center;
+      }  
+      ha-entity-toggle {
+        margin: auto;
+      }
+      ha-climate-state{
+        margin: auto;
+      }
+      .info {
+        min-width: 50px;
+      }
+      state-badge {
+      	min-width: 40px;
+      	margin:auto;
+      }
+      .fo {
+        margin:auto;
+        margin-left: 13px;
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:clip;
+      } 
+      .fot {
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+      } 
+       .extra {
+        font-size:14px;
+        color: var(--secondary-text-color);
+        margin-right: 3px;
+        margin-top: -2px;
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:clip;
+       }
+    </style>
+    <div class='horizontal justified layout'>
+      <div class='horizontal info layout'>
+        <state-badge state-obj="[[stateObj]]" hass="[[hass]]" class="style-scope state-info"></state-badge>
+        <div class='fo'>
+          <div class='fot'>
+        [[stateObj.attributes.friendly_name]]
+          </div>
+          <template is='dom-repeat' items="[[config.extra_badge]]" as="entity_id">
+          <a class='extra'>[[computeExtra(hass, entity_id, stateObj)]]</a>
+          </template>
+        </div>
+      </div>
+      <div on-click='stopPropagation' class='horizontal justified layout button-groupa'>
+        <paper-button-group on-click='stopPropagation'>
+        <template is="dom-repeat" items="[[config.entities]]" as="entity">
+        <paper-button style$="[[computeTileStyle(hass, entity)]]" on-tap="callService">
+        <template is="dom-if" if="[[entity.icon]]">
+        <iron-icon icon="[[entity.icon]]"></iron-icon>
+        </template>
+          [[entity.label]]
+        </paper-button>
+        </template>
+        </paper-button-group>
+        <ha-entity-toggle style$="[[computetoggleStyle(hass, entity_id, config)]]" state-obj="[[stateObj]]" hass="[[hass]]"></ha-entity-toggle>
+        <div class='horizontal info layout' style$="[[computestateStyle(hass, entity_id, config)]]">
+          <ha-climate-state state-obj="[[stateObj]]" hass="[[hass]]" class="style-scope state-card-climate">
+          </ha-climate-state>
+          <div style$="[[computeunitStyle(hass, entity_id, config)]]">
+        &nbsp;[[stateObj.attributes.unit_of_measurement]]
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</dom-module>
+<script>
+  const author = 'Qinver';
+  Polymer({
+    is: 'state-card-button',
+    properties: {
+      hass: {
+        type: Object,
+      },
+      stateObj: {
+        type: Object,
+      },
+      config: {
+        type: Object,
+        computed: 'computeConfig(stateObj)',
+      },
+    },
+    computeConfig: function (stateObj) {     
+      return stateObj.attributes.config;
+    },
+    ready: function (hass, config) {
+      var config = this.config;
+      this.updateStyles({
+        '--tiles-width': config.width ? config.width : '32px',
+        '--tiles-height': config.height ? config.height : '32px',
+        '--tiles-gap': config.gap ? config.gap : '8px',
+        '--border-radius' : config.border_radius ? config.border_radius : '5px',
+        '--ha-entity-toggle-gap-display': config.ha_entity_toggle_display ? config.ha_entity_toggle_display : 'inline',
+        '--group-margin-right': config.ha_entity_toggle_display ? '-3px' : '6px',
+      });
+    },
+    computeExtra: function (hass, entity_id, stateObj) {
+      var title = entity_id.title ? entity_id.title : '';     
+      var attribute = entity_id.attribute ? entity_id.attribute : '';
+      var unit = entity_id.unit ? entity_id.unit : '';
+      var zhi = entity_id.attribute ? (hass.states[entity_id.entity_id].attributes[attribute]) : (hass.states[entity_id.entity_id].state);
+      var ecc = (hass.states[entity_id.entity_id].attributes.current_temperature) ? '/' +(hass.states[entity_id.entity_id].attributes.current_temperature) + '℃' : '';      
+      var ec = (hass.states[entity_id.entity_id].state) + ' ' +  (hass.states[entity_id.entity_id].attributes.temperature) + '℃' + ecc;
+      var id = entity_id.entity_id;
+      var cpt = id.split('.')[0];
+      if (cpt === 'climate') {
+      var zhi = entity_id.attribute ? (hass.states[entity_id.entity_id].attributes[attribute]) : ec;
+      } else{}
+        return zhi ? title + zhi + unit : '';
+    },
+    computeTileStyle: function (hass, entity) {
+      var con = entity.color_on ? entity.color_on : 'var(--paper-toggle-button-checked-button-color)';
+      var coff = entity.color_off ? entity.color_off : 'var(--primary-text-color)';
+      var bcon = entity.background_color_on ? entity.background_color_on : 'rgba(0, 0, 0,0)';
+      var bcoff = entity.background_color_off ? entity.background_color_off : 'rgba(0, 0, 0,0)';
+      var img = entity.image ? ' background-image: url("' + entity.image + '");' : '';
+      var imgh = entity.image_height ? ' background-size: auto ' + entity.image_height + ';' : 'background-size:auto 22px;';
+      var booff = 'background-color: ' + bcoff + '; color: ' + coff + ';' +  img +  imgh;
+      var boon = 'background-color: ' + bcon + '; color: ' + con + ';' +  img +  imgh;
+      return (hass.states[entity.entity].state === 'on') ? boon : booff;
+    },
+    computetoggleStyle: function (hass, entity_id, config) {
+      var txs = config.ha_entity_toggle_display ? config.ha_entity_toggle_display : 'inline';
+      var tid = this.stateObj.entity_id;
+      var tcpt = tid.split('.')[0];
+      if ((tcpt === 'climate')||(tcpt === 'binary_sensor')||(tcpt === 'device_tracker')||(tcpt === 'input_number')||(tcpt === 'sensor')||(tcpt === 'zone')||(tcpt === 'sun')){
+        return 'display: none;';
+      } else{
+        return 'display:' + txs + ';';
+      }
+    },
+    computestateStyle: function (hass, entity_id, config) {
+      var sxs = config.ha_entity_toggle_display ? config.ha_entity_toggle_display : 'flex';
+      var tid = this.stateObj.entity_id;
+      var tcpt = tid.split('.')[0];
+      if ((tcpt != 'climate')&&(tcpt != 'binary_sensor')&&(tcpt != 'device_tracker')&&(tcpt != 'input_number')&&(tcpt != 'sensor')&&(tcpt != 'zone')&&(tcpt != 'sun')){
+        return 'display: none;';
+      } else{
+        return 'display:' + sxs + ';margin:auto;';
+      }
+    },
+   computeunitStyle: function (hass, entity_id, config) {
+      var tid = this.stateObj.entity_id;
+      var tcpt = tid.split('.')[0];
+      if (tcpt === 'sensor'){
+        return 'margin:auto;';
+      } else{
+        return 'display: none;';
+      }
+    },
+    callService: function (e) {
+      var entity = e.model.entity.entity;
+      var domain = entity.split('.')[0];
+      if (domain === 'script') {
+        var service = entity.split('.')[1];
+        var data = e.model.entity.data ? (e.model.entity.data) : {};
+      } else {
+        var service = e.model.entity.service ? e.model.entity.service.split('.')[1] : 'toggle';
+        var data = e.model.entity.data ? (e.model.entity.data) : { 'entity_id': entity };
+      }       
+      this.hass.callService(domain,service,data);
+    },
+    stopPropagation(t){
+      t.stopPropagation();
+    },
+  });
+</script>
