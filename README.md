@@ -6,8 +6,9 @@
 所以就有了Custom_UI=自定义UI.
 最早的,也是目前最常用的Custom_UI就是这个了,我们通常叫原版[Custom_UI.](https://github.com/andrey-git/home-assistant-custom-ui)
 这个能实现很多功能,也有很多玩法,比如增加圆形徽章组,给灯光增加滑杆直接调亮度,显示更多的信息等...
-**但是貌似忽略了一些按键功能.
-然后我就针对按钮的方便性制作了一个Custom_UI.**
+但是貌似忽略了一些按键功能.
+然后我就针对按钮的方便性制作了一个Custom_UI
+
 ----------
 
 | 作者     | Qinver |
@@ -43,21 +44,12 @@
 3.完成以以上两步,那么就安装好了,接下来让它在HA生效
 在HA配置文件中对应位置添加以下代码：
 
-``` frontend:
+``` 
+frontend:
   javascript_version: auto
   extra_html_url:
-    - /local/custom_ui/state-card-custom-ui.html
-    - /local/custom_ui/state-card-tiles.html
-    - /local/custom_ui/state-card-custom-phicomm-aircat.html
-    - /local/custom_ui/state-card-floorplan.html
-    - /local/custom_ui/state-card-custom_light.html
     - /local/custom_ui/state-card-button.html
   extra_html_url_es5:
-    - /local/custom_ui/state-card-custom-ui-es5.html
-    - /local/custom_ui/state-card-tiles.html
-    - /local/custom_ui/state-card-custom-phicomm-aircat.html
-    - /local/custom_ui/state-card-floorplan.html
-    - /local/custom_ui/state-card-custom_light.html
     - /local/custom_ui/state-card-button.html
 ```
 
