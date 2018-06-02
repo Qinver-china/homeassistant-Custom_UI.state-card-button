@@ -22,20 +22,46 @@
 4. 注意事项
 
 ###  支持的功能
-一句话慨阔是可以在任意一行ID中增加一些按钮,这些按钮的大小/颜色/图标/状态/功能等都可以自定义,极大的提高了扩展性
+> 一句话慨阔是可以在任意一行ID中增加一些按钮,这些按钮的大小/颜色/图标/状态/功能等都可以自定义,极大的提高了扩展性
 
- - 增加按钮时候可以选择本来的控制开关是否隐藏.
- - 增加的按钮支持方块/文字/图标/自定义图片的显示
- - 图标和背景方块的颜色支持自定义,且可以根据状态不同改变颜色
- - 按钮的尺寸、间距、圆角半径均可自定义
- - 可以在名称下显示附加信息.(这个和原版Custom_UI差不多)
- - 每一个按钮可以自定义按下的动作,也是就action,和自动化的action功能一样.
- 功能简单,但是玩法很多! 
-
+ 1. 增加按钮时候可以选择本来的控制开关是否隐藏.
+ 2. 增加的按钮支持方块/文字/图标/自定义图片的显示
+ 3. 图标和背景方块的颜色支持自定义,且可以根据状态不同改变颜色
+ 4. 按钮的尺寸、间距、圆角半径均可自定义
+ 5. 可以在名称下显示附加信息.(这个和原版Custom_UI差不多)
+ 6. 每一个按钮可以自定义按下的动作,也是就action,和自动化的action功能一样.
+>功能简单,但是玩法很多! 
+#### 图片展示
  
-### 不收费
+### 安装教程
+1.如果之前没有用过任何的Custom_UI！
+那么:下载这个链接里面的两个文件,并放入你的配置文件目录的*==~/custom_components/customizer==*下!
 
-1. 免费又实用的功能太多了，不知道重点写什么好，自己到 http://soft.xiaoshujiang.com/feature.html 这里看吧.....
+完成第一步就可以使用别人制作的Custom_UI文件了
+2.下载我制作的Custom_UI文件(state-card-button.html)放入你的配置目录的 *==~/www/custom_ui==* 下
+
+3.完成以以上两步,那么就安装好了,接下来让它在HA生效
+在HA配置文件中对应位置添加以下代码：
+
+``` frontend:
+  javascript_version: auto
+  extra_html_url:
+    - /local/custom_ui/state-card-custom-ui.html
+    - /local/custom_ui/state-card-tiles.html
+    - /local/custom_ui/state-card-custom-phicomm-aircat.html
+    - /local/custom_ui/state-card-floorplan.html
+    - /local/custom_ui/state-card-custom_light.html
+    - /local/custom_ui/state-card-button.html
+  extra_html_url_es5:
+    - /local/custom_ui/state-card-custom-ui-es5.html
+    - /local/custom_ui/state-card-tiles.html
+    - /local/custom_ui/state-card-custom-phicomm-aircat.html
+    - /local/custom_ui/state-card-floorplan.html
+    - /local/custom_ui/state-card-custom_light.html
+    - /local/custom_ui/state-card-button.html
+```
+
+
 
 ## 其他
 
