@@ -46,7 +46,7 @@ HA的原版UI局限性太大了,一行一个控制.一个空气净化器就要6/
  1. 如果之前没有用过任何的Custom_UI！
 那么:下载这个链接里面的两个文件,并放入你的配置文件目录的`~/custom_components/customizer`下!
 
-完成第一步就可以使用别人制作的Custom_UI文件了
+    完成第一步就可以使用别人制作的Custom_UI文件了
 
 2. 下载我制作的Custom_UI文件(state-card-button.html)放入你的配置目录的`~/www/custom_ui`下
 
