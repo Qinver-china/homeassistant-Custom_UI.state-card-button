@@ -173,3 +173,11 @@ homeassistant:
               entity_id: climate.midea  #如果有写data就必须写entity_id,不写就是控制全部climate
               operation_mode: auto 
 ```
+
+### 注意事项
+
+ - 注意添加的按钮数量以及宽度,如果太长可能会造成显示不佳
+
+### 帮助与支持
+欢迎加入[『瀚思彼岸』](https://bbs.hassbian.com)论坛  
+[我在论坛中的其它主题,以及联系方式](https://bbs.hassbian.com/home.php?mod=space&uid=645&do=thread&view=me&from=space)
