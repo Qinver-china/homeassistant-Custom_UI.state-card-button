@@ -43,11 +43,12 @@ HA的原版UI局限性太大了,一行一个控制.一个空气净化器就要6/
 #### 图片展示
  
 ### 安装教程
-1.如果之前没有用过任何的Custom_UI！
+ 1. 如果之前没有用过任何的Custom_UI！
 那么:下载这个链接里面的两个文件,并放入你的配置文件目录的`~/custom_components/customizer`下!
 
 完成第一步就可以使用别人制作的Custom_UI文件了
-2.下载我制作的Custom_UI文件(state-card-button.html)放入你的配置目录的`~/www/custom_ui`下
+
+ 2. 下载我制作的Custom_UI文件(state-card-button.html)放入你的配置目录的`~/www/custom_ui`下
 
 3.完成以以上两步,那么就安装好了,接下来让它在HA生效
 在HA配置文件中对应位置添加以下代码：
