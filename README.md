@@ -9,7 +9,7 @@ HA的原版UI局限性太大了,一行一个控制.一个空气净化器就要6/
 最早的,也是目前最常用的Custom_UI就是这个了,我们通常叫原版[Custom_UI](https://github.com/andrey-git/home-assistant-custom-ui "悬停显示")  
 这个能实现很多功能,也有很多玩法,比如增加圆形徽章组,给灯光增加滑杆直接调亮度,显示更多的信息等...  
 但是貌似忽略了一些按键功能.  
-然后我就针对按钮的方便性制作了一个`Custom_UI`
+然后我就针对按钮的方便性制作了一个`Custom_UI.state-card-button`
 
 ----------
 
