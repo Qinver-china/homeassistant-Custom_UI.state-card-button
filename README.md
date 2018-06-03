@@ -25,7 +25,7 @@ HA的原版UI局限性太大了,一行一个控制.一个空气净化器就要6/
 	* [图片展示](#图片展示)
 * [安装教程](#安装教程)
   * [准备](#准备-如果之前没有用过任何的custom_ui)
-  * [安装](#安装:)
+  * [安装](#激活完成以以上两步那么就安装好了接下来让它在ha生效)
   * [激活](#激活完成以以上两步那么就安装好了接下来让它在ha生效)
 * [配置文件格式](#配置文件格式)
  	* [完整的配置格式](#完整的配置格式)
@@ -208,4 +208,6 @@ homeassistant:
 
 ### 帮助与支持
 欢迎加入[『瀚思彼岸』](https://bbs.hassbian.com)论坛  
-[我在论坛中的其它主题,以及联系方式](https://bbs.hassbian.com/home.php?mod=space&uid=645&do=thread&view=me&from=space)
+[我在论坛中的其它主题,以及联系方式](https://bbs.hassbian.com/home.php?mod=space&uid=645&do=thread&view=me&from=space)  
+如果遇到问题请在[这个帖子](https://bbs.hassbian.com/thread-3921-1-1.html)中提交回复
+
