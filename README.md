@@ -22,11 +22,11 @@ HA的原版UI局限性太大了,一行一个控制.一个空气净化器就要6/
 ## 目录
 
 * [支持的功能](#支持的功能)
-	  * [图片展示](#图片展示)
+	* [图片展示](#图片展示)
 * [安装教程](#安装教程)
-  	* [准备](#准备-如果之前没有用过任何的custom_ui)
- 	* [安装](#安装下载我制作的custom_ui文件state-card-buttonhtml放入你的配置目录的下)
- 	* [激活](#激活完成以以上两步那么就安装好了接下来让它在ha生效)
+  * [准备](#准备-如果之前没有用过任何的custom_ui)
+  * [安装](#安装下载我制作的custom_ui文件state-card-buttonhtml放入你的配置目录的下)
+  * [激活](#激活完成以以上两步那么就安装好了接下来让它在ha生效)
 * [配置文件格式](#配置文件格式)
  	* [完整的配置格式](#完整的配置格式)
  	* [按钮样式](#按钮样式)
@@ -53,14 +53,14 @@ HA的原版UI局限性太大了,一行一个控制.一个空气净化器就要6/
  
 ### 安装教程
 #### 准备: 如果之前没有用过任何的Custom_UI！  
-那么:下载这个链接里面的两个文件,并放入你的配置文件目录的`~/custom_components/customizer`下!
+那么:下载[这个链接](https://github.com/andrey-git/home-assistant-customizer/tree/master/customizer)里面的两个文件,并放入你的配置文件目录的`~/custom_components/customizer`下!
 
     完成第一步就可以使用别人制作的Custom_UI文件了
 
-#### 安装:下载我制作的Custom_UI文件(state-card-button.html)放入你的配置目录的`~/www/custom_ui`下.
+#### 安装:下载我制作的Custom_UI文件[(state-card-button.html)](https://github.com/Qinver-china/homeassistant-Custom_UI.state-card-button/blob/master/www/custom_ui/state-card-button.html)放入你的配置目录的`~/www/custom_ui`下.
 
 #### 激活:完成以以上两步,那么就安装好了,接下来让它在HA生效
-在HA配置文件中对应位置添加以下代码：
+在HAconfiguration.yaml配置文件中对应位置添加以下代码：
 
 ``` 
 frontend:
