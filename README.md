@@ -209,5 +209,5 @@ homeassistant:
 ### 帮助与支持
 欢迎加入[『瀚思彼岸』](https://bbs.hassbian.com)论坛  
 我在论坛中的[其它主题](https://bbs.hassbian.com/home.php?mod=space&uid=645&do=thread&view=me&from=space) ,以及联系方式  
-如果遇到问题请在[这个帖子](https://bbs.hassbian.com/thread-3954-1-1.html)中提交回复
+如果遇到问题请在[这个帖子](https://bbs.hassbian.com/thread-3921-1-1.html)中提交回复
 
