@@ -200,6 +200,7 @@ homeassistant:
               operation_mode: auto 
 ```
 #### 第二行按钮  
+![第二行按钮](https://github.com/Qinver-china/homeassistant-Custom_UI.state-card-button/blob/master/screenshot/11.jpg)  
 如果你觉得一行能增加的按钮有限,那么你可以选择增加第二行按钮.  
 第二行按钮默认不显示,当主ID实体状态为`on`时就显示第二行,所以请用于开关类型  
 ```yaml  
