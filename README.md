@@ -16,8 +16,7 @@ HA的原版UI局限性太大了,一行一个控制.一个空气净化器就要6/
 | 作者     | Qinver |
 | -------- | ------ |
 | E-mail | 770349780@qq.com |
-| 版本     | 1.01   |
-| 最后更新 |2018年06月03日 10:50|
+| 最后更新 |2018年06月09日 |
 
 ## 目录
 
@@ -33,11 +32,18 @@ HA的原版UI局限性太大了,一行一个控制.一个空气净化器就要6/
  	 * [原按钮是否显示](#原按钮是否显示)
  	 * [附加信息显示](#附加信息显示)
  	* [自定义按钮功能](#自定义按钮功能)
+	* [[新增功能]第二行按钮](#第二行按钮)
 * [注意事项](#注意事项)
 * [帮助与支持](#帮助与支持)
 
 ----------
+##  更新记录  
+### -18年6月10日  
+1. 修复了按钮service的错误
+2. 增加了[第二行显示](#第二行按钮)
+3. 优化调整了部分显示效果
 
+  
 ###  支持的功能
  一句话慨阔是可以在任意一行ID中增加一些按钮,这些按钮的大小/颜色/图标/状态/功能等都可以自定义,极大的提高了扩展性
 ```
@@ -193,8 +199,52 @@ homeassistant:
               entity_id: climate.midea  #如果有写data就必须写entity_id,不写就是控制全部climate
               operation_mode: auto 
 ```
-
-
+#### 第二行按钮  
+如果你觉得一行能增加的按钮有限,那么你可以选择增加第二行按钮.  
+第二行按钮默认不显示,当主ID实体状态为`on`时就显示第二行,所以请用于开关类型  
+```yaml  
+~~~#以下是如果需要第二行显示,第二行的配置内容
+#格式和上面部分一致
+        b2_width:  26px
+        b2_height: 26px               
+        b2_border_radius: 15px      
+        b2_gap: 18px                 
+        b2_entities:
+          - entity: input_boolean.boolean_ceshi1
+            background_color_on: 'var(--paper-toggle-button-checked-button-color)'     # 打开的时候背景色为主题颜色的打开颜色
+            background_color_off: '#04B404'   # 平时背景色为青色
+            color_on: '#FFFFFF'               # 文字的颜色-打开和关闭都为白色
+            color_off: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
+            label: 睡眠              #文字标签
+          - entity: input_boolean.boolean_ceshi2
+            background_color_on: 'var(--paper-toggle-button-checked-button-color)'  
+            background_color_off: '#FF8000'  # 平时背景色为紫色 
+            color_on: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
+            color_off: '#FFFFFF'             # 文字的颜色-打开和关闭都为白色
+            label: 影院              #文字标签
+            icon: mdi:volume-minus
+          - entity: input_boolean.boolean_ceshi3             #音量+ 
+            icon: mdi:volume-plus
+          - entity: input_boolean.boolean_ceshi4            #电源开关按钮
+            icon: mdi:power
+            color_off: '#E45E65'                           #电源按钮我把他设为红
+          - entity: climate.midea
+            image: /local/img/off.svg
+            image_height: 26px  
+            service: climate.set_operation_mode
+            data:
+              entity_id: climate.gree  #如果有写data就必须写entity_id,不写就是控制全部climate
+              operation_mode: 'off'            
+          - entity: climate.midea
+            image: /local/img/auto.svg
+            image_height: 26px 
+            service: climate.set_operation_mode
+            data:
+              entity_id: climate.gree  #如果有写data就必须写entity_id,不写就是控制全部climate
+              operation_mode: auto
+```
+  
+  
 ----------
 
 
