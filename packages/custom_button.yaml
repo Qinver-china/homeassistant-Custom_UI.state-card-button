@@ -35,7 +35,7 @@ homeassistant:
       icon: mdi:fan    ###主图标
       custom_ui_state_card: state-card-button    ##要用这个custom_ui,就必须写这个!
       config:
-        width: 60px                 # 宽度，低于35px无效，默认为35px
+        width: 70px                 # 宽度，低于35px无效，默认为35px
         height: 35px                # 高度，低于35px无效，默认为35px
         border_radius: 10px        # 圆角半径（默认为5px）
         gap: 10px                   # 间距（默认为8px）
@@ -52,8 +52,8 @@ homeassistant:
           - entity: input_boolean.boolean_ceshi3       #增加的按钮的entity_id
             label: 风类                   #这个按钮显示的文字内容!(默认不显示文字)
             icon: mdi:home-outline        #这个按钮显示的图标(默认不显示)
-            image: local/auto.svg         #这个按钮的背景图片,地址格式可以为全连接.或者将图片放在www文件下,就像模板这样写!支持多中图片格式,甚至是GIF! 但注意尺寸!并且写了这个那么下面的背景颜色将失效!
-            image_height: 28px            #背景图片高度,默认为24px,和icon同尺寸.写 auto ,为图像本身大小.(写了image才需要写这个,或者不写就为默认)
+            image: /local/img/c1.svg         #这个按钮的背景图片,地址格式可以为全连接.或者将图片放在www文件下,就像模板这样写!支持多中图片格式,甚至是GIF! 但注意尺寸!并且写了这个那么下面的背景颜色将失效!
+            image_height: 32px            #背景图片高度,默认为24px,和icon同尺寸.写 auto ,为图像本身大小.(写了image才需要写这个,或者不写就为默认)
 ##以上三个显示为文字/图标/图片,可选择,建议三选一.当然也可以全部选!
             background_color_off: 'var(--paper-toggle-button-checked-button-color)'    # 按钮方块背景颜色-关闭的时候(默认为透明)
             background_color_on: 'var(--paper-toggle-button-checked-button-color)'     # 按钮方块背景颜色-打开的时候(默认为透明)
@@ -67,9 +67,48 @@ homeassistant:
               brightness: 200
 #按钮点击时候的动作,也就是action.写法和自动化的action差不多! 不会的搜索自动化教程!  当然也可以不写,不写就是单纯的按钮动作!
           - entity: input_boolean.boolean_ceshi4   #可以加多个按钮,就像上面格式这样写!
-            image: local/len.svg         #这个按钮的背景图片,地址格式可以为全连接.或者将图片放在www文件下,就像模板这样写!支持多中图片格式,甚至是GIF! 但注意尺寸!并且写了这个那么下面的背景颜色将失效!
-            image_height: 28px            #背景图片高度,默认为24px,和icon同尺寸.写 auto ,为图像本身大小.(写了image才需要写这个,或者不写就为默认)
-
+            image: /local/img/c2.svg        #这个按钮的背景图片,地址格式可以为全连接.或者将图片放在www文件下,就像模板这样写!支持多中图片格式,甚至是GIF! 但注意尺寸!并且写了这个那么下面的背景颜色将失效!
+ 
+            image_height: 30px            #背景图片高度,默认为24px,和icon同尺寸.写 auto ,为图像本身大小.(写了image才需要写这个,或者不写就为默认)
+####以下是如果需要第二行显示,第二行的配置内容
+#格式同上以上
+        b2_width:  26px
+        b2_height: 26px               
+        b2_border_radius: 15px      
+        b2_gap: 18px                 
+        b2_entities:
+          - entity: input_boolean.boolean_ceshi1
+            background_color_on: 'var(--paper-toggle-button-checked-button-color)'     # 打开的时候背景色为主题颜色的打开颜色
+            background_color_off: '#04B404'   # 平时背景色为青色
+            color_on: '#FFFFFF'               # 文字的颜色-打开和关闭都为白色
+            color_off: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
+            label: 睡眠              #文字标签
+          - entity: input_boolean.boolean_ceshi2
+            background_color_on: 'var(--paper-toggle-button-checked-button-color)'  
+            background_color_off: '#FF8000'  # 平时背景色为紫色 
+            color_on: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
+            color_off: '#FFFFFF'             # 文字的颜色-打开和关闭都为白色
+            label: 影院              #文字标签
+            icon: mdi:volume-minus
+          - entity: input_boolean.boolean_ceshi3             #音量+ 
+            icon: mdi:volume-plus
+          - entity: input_boolean.boolean_ceshi4            #电源开关按钮
+            icon: mdi:power
+            color_off: '#E45E65'                           #电源按钮我把他设为红
+          - entity: climate.midea
+            image: /local/img/off.svg
+            image_height: 26px  
+            service: climate.set_operation_mode
+            data:
+              entity_id: climate.gree  #如果有写data就必须写entity_id,不写就是控制全部climate
+              operation_mode: 'off'            
+          - entity: climate.midea
+            image: /local/img/auto.svg
+            image_height: 26px 
+            service: climate.set_operation_mode
+            data:
+              entity_id: climate.gree  #如果有写data就必须写entity_id,不写就是控制全部climate
+              operation_mode: auto
 
 ######最后注意!由于我上面写的是完整的配置,所以直接用效果肯定不好,很多其实没必要都写,自己多试试,多一些组合就有更多的玩法! 
 ###另外由于上面注释很多! 一定要看准对齐喔!
@@ -81,6 +120,7 @@ homeassistant:
       custom_ui_state_card: state-card-button
       config:
 #宽带/高度/间距我都不写,默认就行
+        gap: 22px                   # 间距（默认为8px）
         ha_entity_toggle_display: none    # 不显示右边本来的按钮（默认显示）
         extra_badge:                       #我需要在名称下面显示一个状态
           - entity_id: device_tracker.d1led5220       #这是我机顶盒的device_tracker 
@@ -95,34 +135,6 @@ homeassistant:
           - entity: script.bl_cmcc_hezi_kaiguan            #电源开关按钮
             icon: mdi:power
             color_off: '#E45E65'                           #电源按钮我把他设为红色
-#下面例子是我用input_boolean做的虚拟开关,然后用自动化联动
-    input_boolean.boolean_ceshi1:
-      friendly_name: 场景
-      custom_ui_state_card: state-card-button
-      config:
-        width: 80px                # 因为只有两个按钮,所以宽度大一点好看
-        border_radius: 18px        # 让方块两边显示为圆形更好看
-        ha_entity_toggle_display: none    # 不显示右边本来的按钮（默认显示）
-        extra_badge:                       #需要显示温湿度
-          - entity_id: sensor.m1_temperature  #这是我的温度传感器
-            title: '温度:'                       #显示的前文本(默认不显示))
-            unit: '℃'                        #单位(也就是后文本,默认不显示)
-          - entity_id: sensor.m1_humidity    #湿度
-            title: '湿度:'                             
-            unit: '%'                       
-        entities:
-          - entity: input_boolean.boolean_ceshi1
-            background_color_on: 'var(--paper-toggle-button-checked-button-color)'     # 打开的时候背景色为主题颜色的打开颜色
-            background_color_off: '#04B404'   # 平时背景色为青色
-            color_on: '#FFFFFF'               # 文字的颜色-打开和关闭都为白色
-            color_off: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
-            label: 睡眠模式              #文字标签
-          - entity: input_boolean.boolean_ceshi2
-            background_color_on: 'var(--paper-toggle-button-checked-button-color)'  
-            background_color_off: '#FF8000'  # 平时背景色为紫色 
-            color_on: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
-            color_off: '#FFFFFF'             # 文字的颜色-打开和关闭都为白色
-            label: 影院模式              #文字标签
 
 #下面例子是我给空调增加了4个按钮
     climate.midea:
@@ -134,7 +146,7 @@ homeassistant:
           - entity_id: climate.midea       #显示我自己的附加属性,climate默认会显示更多状态
         entities:
           - entity: climate.midea
-            image: local/img/off.svg
+            image: /local/img/off.svg
             image_height: 26px  
             service: climate.set_operation_mode
             data:
@@ -142,24 +154,24 @@ homeassistant:
               operation_mode: 'off'            
             
           - entity: climate.midea
-            image: local/img/auto.svg
-            image_height: 25px 
+            image: /local/img/auto.svg
+            image_height: 26px 
             service: climate.set_operation_mode
             data:
               entity_id: climate.midea  #如果有写data就必须写entity_id,不写就是控制全部climate
               operation_mode: auto            
             
           - entity: climate.midea
-            image: local/img/len.svg
-            image_height: 26px
+            image: /local/img/len.svg
+            image_height: 25px
             service: climate.set_operation_mode
             data:
               entity_id: climate.midea  #如果有写data就必须写entity_id,不写就是控制全部climate
               operation_mode: cool    
               
           - entity: climate.midea
-            image: local/img/re.svg
-            image_height: 26px
+            image: /local/img/re.svg
+            image_height: 27px
             service: climate.set_operation_mode
             data:
               entity_id: climate.midea  #如果有写data就必须写entity_id,不写就是控制全部climate
@@ -184,52 +196,74 @@ homeassistant:
             background_color_off: 'var(--paper-toggle-button-checked-button-color)'
 
 
-    light.led_tasmota: #这是我的床头灯带,每次换颜色需要点开,有点麻烦
-      friendly_name: 床头灯
+#下面例子是我用input_boolean做的虚拟开关,然后用自动化联动
+    input_boolean.boolean_ceshi1:
+      friendly_name: 场景
       custom_ui_state_card: state-card-button
       config:
-        border_radius: 12px        #显示为圆形（圆角半径）
-        width: 24px
-        height: 24px
-#因为我下面只设置了背景，所以让它显示为小一些的圆形
+        width: 80px                # 因为只有两个按钮,所以宽度大一点好看
+        border_radius: 1px        # 让方块两边显示为圆形更好看
+        gap: 1px                 # 间距
+        ha_entity_toggle_display: none    # 不显示右边本来的按钮（默认显示
+        extra_badge:                       #需要显示温湿度
+          - entity_id: sensor.m1_temperature  #这是我的温度传感器
+            title: '温度:'                       #显示的前文本(默认不显示))
+            unit: '℃'                        #单位(也就是后文本,默认不显示)
+          - entity_id: sensor.m1_humidity    #湿度
+            title: '湿度:'                             
+            unit: '%'                       
         entities:
-          - entity: light.led_tasmota   #就是这个床头灯本来的ID
-##文字,图标,图片都不要,只要背景颜色
-            background_color_off: '#F14B29'    # 打开关闭背景颜色都为为暖红色
-            background_color_on: '#F14B29'    # 打开关闭背景颜色都为为暖红色
-            service: light.turn_on    #点击的时候直接打开灯并且颜色调为暖红色,亮度调为60
+          - entity: input_boolean.boolean_ceshi1
+            background_color_on: 'var(--paper-toggle-button-checked-button-color)'     # 打开的时候背景色为主题颜色的打开颜色
+            background_color_off: '#04B404'   # 平时背景色为青色
+            color_on: '#FFFFFF'               # 文字的颜色-打开和关闭都为白色
+            color_off: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
+            label: 睡眠模式              #文字标签
+          - entity: input_boolean.boolean_ceshi2
+            background_color_on: 'var(--paper-toggle-button-checked-button-color)'  
+            background_color_off: '#FF8000'  # 平时背景色为紫色 
+            color_on: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
+            color_off: '#FFFFFF'             # 文字的颜色-打开和关闭都为白色
+            label: 影院模式              #文字标签
+        second_lines_display: yes
+
+####以下是如果需要第二行显示,第二行的配置内容
+#格式同上以上
+
+        b2_width:  26px
+        b2_height: 26px               
+        b2_border_radius: 15px      
+        b2_gap: 18px                 
+        b2_entities:
+          - entity: input_boolean.boolean_ceshi1
+            background_color_on: 'var(--paper-toggle-button-checked-button-color)'     # 打开的时候背景色为主题颜色的打开颜色
+            background_color_off: '#04B404'   # 平时背景色为青色
+            color_on: '#FFFFFF'               # 文字的颜色-打开和关闭都为白色
+            color_off: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
+            label: 睡眠              #文字标签
+          - entity: input_boolean.boolean_ceshi2
+            background_color_on: 'var(--paper-toggle-button-checked-button-color)'  
+            background_color_off: '#FF8000'  # 平时背景色为紫色 
+            color_on: '#FFFFFF'              # 文字的颜色-打开和关闭都为白色
+            color_off: '#FFFFFF'             # 文字的颜色-打开和关闭都为白色
+            label: 影院              #文字标签
+            icon: mdi:volume-minus
+          - entity: input_boolean.boolean_ceshi3             #音量+ 
+            icon: mdi:volume-plus
+          - entity: input_boolean.boolean_ceshi4            #电源开关按钮
+            icon: mdi:power
+            color_off: '#E45E65'                           #电源按钮我把他设为红
+          - entity: climate.midea
+            image: /local/img/off.svg
+            image_height: 26px  
+            service: climate.set_operation_mode
             data:
-              entity_id: light.led_tasmota  #如果有写data就必须写entity_id,不写就是控制全部light
-              rgb_color: [240,75,40]    #这个颜色值就是我设定的背景颜色
-              brightness: 50
-              effect: 1
-          - entity: light.led_tasmota   #就是这个床头灯本来的ID
-##文字,图标,图片都不要,只要背景颜色
-            background_color_off: '#29A9F1'    # 打开关闭背景颜色都为为天蓝色
-            background_color_on: '#29A9F1'    # 打开关闭背景颜色都为为天蓝色
-            service: light.turn_on    #点击的时候直接打开灯并且颜色调为天蓝色,亮度为100%
+              entity_id: climate.gree  #如果有写data就必须写entity_id,不写就是控制全部climate
+              operation_mode: 'off'            
+          - entity: climate.midea
+            image: /local/img/auto.svg
+            image_height: 26px 
+            service: climate.set_operation_mode
             data:
-              entity_id: light.led_tasmota  #如果有写data就必须写entity_id,不写就是控制全部light
-              rgb_color: [40,170,245]    #这个颜色值和这个按钮的背景色一样
-              brightness: 255
-              effect: 1
-          - entity: light.led_tasmota   #就是这个床头灯本来的ID
-##第三个按钮为图标,不要背景色.
-            icon: mdi:react
-            color_on: 'var(--primary-text-color)'               # 图标的颜色,打开和关闭的颜色都和名字的颜色一样!
-            color_off: 'var(--primary-text-color)'              # 图标的颜色,打开和关闭的颜色都和名字的颜色一样!
-            service: light.turn_on    #点击的时候直接打开灯并开启动画,亮度为100%
-            data:
-              entity_id: light.led_tasmota  #如果有写data就必须写entity_id,不写就是控制全部light
-              brightness: 255
-              effect: 8                #开启动画
-          - entity: light.led_tasmota   #就是这个床头灯本来的ID
-##第三个按钮为图标,不要背景色.
-            icon: mdi:brightness-4
-            color_on: 'var(--primary-text-color)'               # 图标的颜色,打开和关闭的颜色都和名字的颜色一样!
-            color_off: 'var(--primary-text-color)'              # 图标的颜色,打开和关闭的颜色都和名字的颜色一样!
-            service: light.turn_on    #另一个动画
-            data:
-              entity_id: light.led_tasmota  #如果有写data就必须写entity_id,不写就是控制全部light
-              brightness: 255
-              effect: 10                #开启动画
+              entity_id: climate.gree  #如果有写data就必须写entity_id,不写就是控制全部climate
+              operation_mode: auto
