@@ -6,33 +6,39 @@
         text-align: right;
         margin: -6px 0;
       }    
-      paper-button-group {          
+      paper-button-group {   
+        background: rgb(199,111,0,0);       
         padding: 0;
-        margin: auto;
-        text-align: right;
-        margin-right: var(--group-margin-right);
-        display: table;
-        border-collapse:separate;
-        border-spacing: var(--tiles-gap);
+        margin: auto 0;
+      	display: table;
+      	border-collapse:separate;
       }  
+      #b1{
+      	border-spacing: var(--tiles-gap);
+      	margin-right: var(--group-margin-right);
+      }
+      #b2{
+      	border-spacing: var(--b2-gap);
+      }      
       paper-button {  
-        display:table-cell;
+      	display:table-cell;
         vertical-align:middle;
         text-align:center;
-        background-color: var(--tiles-background-color-off);
-        color: var(--tiles-color-off);
-        border-radius: var(--border-radius);
-        transition: .1s;
-        min-width: var(--tiles-width);
-        height: var(--tiles-height);
-        padding: 0;
+        padding: 0 5px;
         background-repeat:no-repeat;
         background-position:center;
-      }  
-      ha-entity-toggle {
-        margin: auto;
       }
-      ha-climate-state{
+      #b1b {
+        min-width: var(--tiles-width);
+        height: var(--tiles-height);
+        border-radius: var(--border-radius);
+      }
+      #b2b {
+        min-width: var(--b2-width);
+        height: var(--b2-height);
+        border-radius: var(--b2-border-radius);
+      }      
+      ha-entity-toggle,ha-climate-state {
         margin: auto;
       }
       .info {
@@ -44,7 +50,7 @@
       }
       .fo {
         margin:auto;
-        margin-left: 13px;
+        margin-left: 16px;
         overflow:hidden;
         white-space:nowrap;
         text-overflow:clip;
@@ -63,6 +69,19 @@
         white-space:nowrap;
         text-overflow:clip;
        }
+        .on {  
+        display:block;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        padding: 4px 0 6px 0;
+        text-align: center;    
+        border-bottom: 1px solid rgb(120,120,120,0.4);
+       }
+        .off {  
+        display:none;
+       }
+
     </style>
     <div class='horizontal justified layout'>
       <div class='horizontal info layout'>
@@ -77,9 +96,9 @@
         </div>
       </div>
       <div on-click='stopPropagation' class='horizontal justified layout button-groupa'>
-        <paper-button-group on-click='stopPropagation'>
+        <paper-button-group id="b1">
         <template is="dom-repeat" items="[[config.entities]]" as="entity">
-        <paper-button style$="[[computeTileStyle(hass, entity)]]" on-tap="callService">
+        <paper-button id="b1b" style$="[[computeTileStyle(hass, entity)]]" on-tap="callService">
         <template is="dom-if" if="[[entity.icon]]">
         <iron-icon icon="[[entity.icon]]"></iron-icon>
         </template>
@@ -96,6 +115,18 @@
           </div>
         </div>
       </div>
+    </div>
+    <div on-click='stopPropagation' class$="[[computeTileClass(hass, entity_id, stateObj, config)]]">
+        <paper-button-group id="b2">
+        <template is="dom-repeat" items="[[config.b2_entities]]" as="entity">
+        <paper-button id="b2b" style$="[[computeTileStyle(hass, entity)]]" on-tap="callService">
+        <template is="dom-if" if="[[entity.icon]]">
+        <iron-icon icon="[[entity.icon]]"></iron-icon>
+        </template>
+          [[entity.label]]
+        </paper-button>
+        </template>
+        </paper-button-group>
     </div>
   </template>
 </dom-module>
@@ -123,10 +154,16 @@
       this.updateStyles({
         '--tiles-width': config.width ? config.width : '32px',
         '--tiles-height': config.height ? config.height : '32px',
-        '--tiles-gap': config.gap ? config.gap : '8px',
+        '--tiles-gap': config.gap ? config.gap + ' ' + '6px' : '6px',
         '--border-radius' : config.border_radius ? config.border_radius : '5px',
         '--ha-entity-toggle-gap-display': config.ha_entity_toggle_display ? config.ha_entity_toggle_display : 'inline',
-        '--group-margin-right': config.ha_entity_toggle_display ? '-3px' : '6px',
+        '--group-margin-right': (config.ha_entity_toggle_display == 'none') ? '-' + (config.gap ? config.gap : '5px') : '0px',
+
+        '--b2-width': config.b2_width ? config.b2_width : '32px',
+        '--b2-height': config.b2_height ? config.b2_height : '32px',
+        '--b2-gap': config.b2_gap ? config.b2_gap + ' ' + '6px' : '6px',
+        '--b2-border-radius' : config.b2_border_radius ? config.b2_border_radius : '5px',
+
       });
     },
     computeExtra: function (hass, entity_id, stateObj) {
@@ -185,7 +222,7 @@
     },
     callService: function (e) {
       var entity = e.model.entity.entity;
-      var domain = entity.split('.')[0];
+      var domain = e.model.entity.service ? e.model.entity.service.split('.')[0] : entity.split('.')[0];
       if (domain === 'script') {
         var service = entity.split('.')[1];
         var data = e.model.entity.data ? (e.model.entity.data) : {};
@@ -198,5 +235,20 @@
     stopPropagation(t){
       t.stopPropagation();
     },
+    
+    computeTileClass: function (hass, entity_id, stateObj, config) {
+      return config.b2_entities ? ((hass.states[stateObj.entity_id].state === 'on') ? 'on' : 'off') : 'off';
+      
+      
+    },
+    
+    
+    
+    
+    
+    
+    
+    
+    
   });
 </script>
