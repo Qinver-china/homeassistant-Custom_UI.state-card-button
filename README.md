@@ -1,4 +1,6 @@
-# 用于Homeassistant的多功能按钮的自定义UI
+# 以下内容将不再更新！请使用新版的[lovelace-card-touchpad](https://github.com/Qinver-china/lovelace-card-touchpad)
+
+### 用于Homeassistant的多功能按钮的自定义UI
 
 ### state-card-button.html
 
